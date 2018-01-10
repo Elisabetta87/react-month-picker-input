@@ -21,8 +21,8 @@ export interface IProps {
 };
 
 export interface IState {
-  year: void|number,
-  month: void|number,
+  year: void | number,
+  month: void | number,
   inputValue: string,
   showCalendar: boolean,
 };
@@ -58,7 +58,7 @@ class MonthPickerInput extends Component<IProps, IState> {
     this.onChange(inputValue, year, month);
   };
 
-  onInputChange = (e: { target: { value: string }}): void => {
+  onInputChange = (e: { target: { value: string } }): void => {
     const mask = e.target.value;
 
     if (mask.length && mask.indexOf('_') === -1) {
@@ -107,8 +107,9 @@ class MonthPickerInput extends Component<IProps, IState> {
 
   inputProps = (): object => {
     return Object.assign({}, {
-      ref: input => { if(input) this.input = input; },
-      mask: "99/99",
+      ref: input => { if (input) this.input = input; },
+      mask: "aaaaaaaaa 9999",
+      maskChar: ' ',
       placeholder: DATE_FORMAT,
       type: 'text',
       onBlur: this.onInputBlur,
@@ -121,13 +122,13 @@ class MonthPickerInput extends Component<IProps, IState> {
     const { inputValue, showCalendar } = this.state;
 
     return (
-      <div ref={wrap => { if(wrap) this.wrapper = wrap; }}>
+      <div ref={wrap => { if (wrap) this.wrapper = wrap; }}>
         <InputMask
           value={inputValue}
-          {...this.inputProps()}
+          {...this.inputProps() }
         />
 
-        { showCalendar && this.calendar() }
+        {showCalendar && this.calendar()}
       </div>
     );
   };
