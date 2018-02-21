@@ -6,8 +6,8 @@ import Head from './Head';
 import { MONTHS_NAMES, VIEW_MONTHS, VIEW_YEARS } from './constants';
 
 export interface IProps {
-  year: void|number,
-  month: void|number,
+  year: void | number,
+  month: void | number,
   startYear?: number,
   onChange: (selectedYear: number, selectedMonth: number) => any,
   onOutsideClick: (e: any) => any,
@@ -15,13 +15,13 @@ export interface IProps {
 
 export interface IState {
   years: Array<number>,
-  selectedYear: void|number,
-  selectedMonth: void|number,
+  selectedYear: void | number,
+  selectedMonth: void | number,
   currentView: string,
 }
 
 class MonthCalendar extends Component<IProps, IState> {
-  constructor(props: IProps){
+  constructor(props: IProps) {
     super(props);
 
     const { year, month } = this.props;
@@ -29,7 +29,7 @@ class MonthCalendar extends Component<IProps, IState> {
     const startYear = this.props.startYear || new Date().getFullYear() - 6;
 
     this.state = {
-      years: Array.from({length: 12}, (v, k) => k + startYear),
+      years: Array.from({ length: 12 }, (v, k) => k + startYear),
       selectedYear: year,
       selectedMonth: month,
       currentView: year ? VIEW_MONTHS : VIEW_YEARS,
@@ -69,17 +69,21 @@ class MonthCalendar extends Component<IProps, IState> {
   };
 
   previous = (): void => {
-    const startYear = this.state.years[0] - 12;
+    //const startYear = this.state.years[0] - 12;
+    const startYear = +this.state.selectedYear - 1;
+    this.selectYear(startYear);
     this.updateYears(startYear);
   }
 
   next = (): void => {
-    const startYear = this.state.years[11] + 1;
+    //const startYear = this.state.years[11] + 1;
+    const startYear = +this.state.selectedYear + 1;
+    this.selectYear(startYear);
     this.updateYears(startYear);
   }
 
   updateYears = (startYear: number): void => {
-    const years = Array.from({length: 12}, (v, k) => k + startYear);
+    const years = Array.from({ length: 12 }, (v, k) => k + startYear);
 
     this.setState({ years, currentView: VIEW_YEARS });
   }
@@ -135,7 +139,8 @@ class MonthCalendar extends Component<IProps, IState> {
           onPrev={this.previous}
           onNext={this.next} />
 
-        {this.isYears() ? this.renderYears() : this.renderMonths()}
+        {/* {this.isYears() ? this.renderYears() : this.renderMonths()} */}
+        {this.renderMonths()}
       </OutsideClickWrapper>
     );
   }
